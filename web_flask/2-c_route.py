@@ -12,6 +12,7 @@ def hello_hbnbL():
 def hbnb():
     return 'HBNB'
 
+@app.route('/c/<text>', strict_slashes=False)
 def c_route(text):
     # Replace underscores with spaces
     display_text = text.replace('_', ' ')
