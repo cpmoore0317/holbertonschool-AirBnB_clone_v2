@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+""" A script that starts a Flask web application, route for hmtl display """
 from flask import Flask, render_template
 
 app = Flask(__name__)
