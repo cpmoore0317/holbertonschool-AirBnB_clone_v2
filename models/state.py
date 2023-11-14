@@ -19,11 +19,11 @@ class State(BaseModel, Base):
         name = ""
         cites = []
 
-    @property
-    def cities(self):
-        city_list = []
-        if models.storage_t != 'db':
-            for city_object in models.storage.all(City).values():
-                if city_object.state_id == self.id:
-                    city_list.append(city_object)
-        return city_list
+        @property
+        def cities(self):
+            city_list = []
+            if models.storage_t != 'db':
+                for city_object in models.storage.all(City).values():
+                    if city_object.state_id == self.id:
+                        city_list.append(city_object)
+            return city_list
