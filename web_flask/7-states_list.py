@@ -2,6 +2,8 @@
 """ Script that starts a Flask web application to display States"""
 from flask import Flask, render_template
 from models import storage
+from models.state import State
+from models import storage
 
 
 app = Flask(__name__)
@@ -9,14 +11,11 @@ app = Flask(__name__)
 
 @app.route('/states_lis', strict_slashes=False)
 def states_list():
-    """ State list """
-    states = storage.all("State")
-    states = [state for state in states.values()]
-    return render_template("7-states_list.html", states=states)
+    return render_template("7-states_list.html",
+                           states=storage.all(State))
 
 @app.teardown_appcontext
 def teardown(exception):
-    """ Method to handle """
     storage.close()
 
 if __name__ == '__main__':
