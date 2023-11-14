@@ -1,33 +1,27 @@
 #!/usr/bin/python3
-"""Defines the State class."""
-import models
-from os import getenv
-from models.base_model import Base
-from models.base_model import BaseModel
-from models.city import City
-from sqlalchemy import Column
-from sqlalchemy import String
-from sqlalchemy.orm import relationship
+"""
+Script that starts a Flask web application to display States
+"""
+
+from flask import Flask, render_template
+from models.state import State
+from models import storage
+
+app = Flask(__name__)
 
 
-class State(BaseModel, Base):
-    """Represents a state for a MySQL database.
-    Inherits from SQLAlchemy Base and links to the MySQL table states.
-    Attributes:
-        __tablename__ (str): The name of the MySQL table to store States.
-        name (sqlalchemy String): The name of the State.
-        cities (sqlalchemy relationship): The State-City relationship.
-    """
-    __tablename__ = "states"
-    name = Column(String(128), nullable=False)
-    cities = relationship("City",  backref="state", cascade="delete")
+@app.route('/states_lis', strict_slashes=False)
+def states_list():
+    """Display a HTML page with the states listed in alphabetical order"""
+    return render_template("7-states_list.html",
+                           states=storage.all(State))
 
-    if getenv("HBNB_TYPE_STORAGE") != "db":
-        @property
-        def cities(self):
-            """Get a list of all related City objects."""
-            city_list = []
-            for city in list(models.storage.all(City).values()):
-                if city.state_id == self.id:
-                    city_list.append(city)
-            return city_list
+
+@app.teardown_appcontext
+def teardown(exception):
+    """Closes the storage on teardown"""
+    storage.close()
+
+
+if __name__ == '__main__':
+    app.run(host="0.0.0.0", port=5000, debug=True)
