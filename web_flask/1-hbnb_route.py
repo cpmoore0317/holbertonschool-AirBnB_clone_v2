@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+""" A script that starts a Flask web app to display a text depending on the route """
 
 from flask import Flask
 
