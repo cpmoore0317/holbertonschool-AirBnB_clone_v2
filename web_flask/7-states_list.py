@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """Script that starts a Flask web application to display States"""
 from flask import Flask, render_template
-from models import storage
 from models.state import State
 from models import storage
 

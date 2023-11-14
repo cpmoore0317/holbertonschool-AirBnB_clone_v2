@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """Script that starts a flask web application display cities"""
-from flask import Flask
-from flask import render_template
+from flask import Flask, render_template
 from models.state import State
 from models import storage
 
