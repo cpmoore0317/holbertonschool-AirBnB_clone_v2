@@ -31,11 +31,7 @@ def number_route(n):
 
 @app.route('/number_template/<int:n>', strict_slashes=False)
 def number_template_route(n):
-    # Check if n is an integer
-    if isinstance(n, int):
         return render_template('number_template.html', number=n)
-    else:
-        return 'Not a valid integer'
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
